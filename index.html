@@ -3,852 +3,864 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XiJiahao's Portfolio with Dynamic Weather</title>
-    <!-- 引入天气图标库 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css">
-    <!-- 添加Font Awesome图标库 -->
+    <title>XiJiahao | Advanced Tech Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ===== Dark Theme Styles ===== */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;极客display=swap');
-        @import url('https://cdn.bootcdn.net/ajax/libs/firacode/5.2.0/fira_code.min.css');
-        
-        :root {
-            /* Dark palette */
-            --dark-bg: #0a0a0f;
-            --card-bg: #12121a;
-            --card-hover: #1a1a25;
-            --primary: #4fa8d4;
-            --secondary: #7b68ee;
-            --accent: #ff6b6b;
-            --text: #e3e4f1;
-            --text-secondary: #a9acc6;
-            --border: rgba(255,255,255,0.08);
-            --success: #2ecc71;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            --transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-            
-            /* Fonts */
-            --font-main: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --font-code: 'Fira Code', SFMono-Regular, Consolas, monospace;
-            
-            /* Sizes */
-            --border-radius: 12px;
-            --card-padding: 24px;
-            --header-height: 100px;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@200;300;400;500;600;700;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
         
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --bg-primary: #050505;
+            --bg-secondary: #0a0a0a;
+            --bg-card: rgba(15, 15, 15, 0.6);
+            --text-primary: rgba(255, 255, 255, 0.95);
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --text-tertiary: rgba(255, 255, 255, 0.4);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --glow-color: rgba(102, 126, 234, 0.4);
+            --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
         }
         
         body {
-            font-family: var(--font-main);
-            line-height: 1.8;
-            margin: 0;
-            padding: 0;
-            background-color: var(--dark-bg);
-            background-image: radial-gradient(circle at 15% 50%, rgba(33, 33, 64, 0.2) 0%, rgba(10, 10, 15, 0) 40%),
-                              radial-gradient(circle at 85% 30%, rgba(59, 43, 91, 0.2) 0%, rgba(10, 10, 15, 0) 35%);
-            color: var(--text);
+            font-family: var(--font-display);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
             min-height: 100vh;
-            padding: 40px 20px;
         }
         
+        /* 高级背景效果 */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, #667eea, transparent);
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+        
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #f093fb, transparent);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 5s;
+        }
+        
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #4facfe, transparent);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 10s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -30px) rotate(90deg); }
+            50% { transform: translate(-20px, 20px) rotate(180deg); }
+            75% { transform: translate(-30px, -20px) rotate(270deg); }
+        }
+        
+        /* 网格背景 */
+        .grid-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+        
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            background: linear-gradient(to bottom, rgba(5, 5, 5, 0.9), transparent);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 15px 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 50px;
+            position: relative;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 1000px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-subtitle {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            font-family: var(--font-mono);
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 30px;
+            background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+        }
+        
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* 浮动卡片 */
+        .floating-cards {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .float-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            animation: float-card 15s infinite ease-in-out;
+        }
+        
+        .float-card-1 {
+            width: 200px;
+            height: 150px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .float-card-2 {
+            width: 180px;
+            height: 180px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+        
+        .float-card-3 {
+            width: 150px;
+            height: 200px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 10s;
+        }
+        
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(3deg); }
+            50% { transform: translateY(10px) rotate(-3deg); }
+            75% { transform: translateY(-10px) rotate(2deg); }
+        }
+        
+        /* 内容区域 */
+        .content-section {
+            padding: 100px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-subtitle {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-family: var(--font-mono);
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        /* 项目网格 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-card:hover::before {
+            opacity: 0.05;
+        }
+        
+        .project-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        
+        .project-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .tag {
+            padding: 5px 15px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            gap: 12px;
+            color: #764ba2;
+        }
+        
+        /* 技能部分 */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .skill-category {
+            padding: 30px;
+            background: rgba(15, 15, 15, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .skill-category-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .skill-category-icon {
+            width: 35px;
+            height: 35px;
+            background: var(--primary-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-item:last-child {
+            border-bottom: none;
+        }
+        
+        .skill-item:hover {
+            padding-left: 10px;
+        }
+        
+        .skill-name {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+        }
+        
+        .skill-level {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .skill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-dot.active {
+            background: var(--primary-gradient);
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+        
+        /* 联系部分 */
+        .contact-section {
+            text-align: center;
+            padding: 150px 50px;
+            position: relative;
+        }
+        
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .contact-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            line-height: 1.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: var(--primary-gradient);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 50px;
+            background: rgba(5, 5, 5, 0.8);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        .footer-text {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .content-section {
+                padding: 80px 20px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* 光标效果 */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transition: all 0.1s ease;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+        
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 9998;
+        }
+        
+        /* 滚动条样式 */
         ::-webkit-scrollbar {
             width: 10px;
         }
         
         ::-webkit-scrollbar-track {
-            background: #0c0c14;
+            background: var(--bg-primary);
         }
         
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            background: linear-gradient(to bottom, #667eea, #764ba2);
             border-radius: 5px;
         }
         
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: linear-gradient(135deg, rgba(79, 168, 212, 0.05), rgba(123, 104, 238, 0.05));
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-            padding: 30px 0;
-            position: relative;
-        }
-        
-        header::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200极客;
-            height: 3px;
-            background: linear-gradient(to right, transparent, var(--primary), transparent);
-            border-radius: 3px;
-        }
-        
-        h1 {
-            color: var(--text);
-            font-size: 3.2rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, var(--text-secondary), var(--text));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .project-desc {
-            color: var(--text-secondary);
-            font-size: 1.3rem;
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .project-desc::after {
-            content: ">";
-            position: absolute;
-            right: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary);
-            animation: blink 1.5s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-        
-        .module-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .module-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--border-radius);
-            padding: var(--card-padding);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .module-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            opacity: 0;
-            transition: var(--transition);
-        }
-        
-        .module-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow);
-            border-color: rgba(123, 104, 238, 0.3);
-            background: var(--card-hover);
-        }
-        
-        .module-card:hover::before {
-            opacity: 1;
-        }
-        
-        .module-title {
-            color: var(--primary);
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-size: 1.7rem;
-            font-weight: 600;
-            position: relative;
-            display: inline-block;
-            padding-bottom: 8px;
-        }
-        
-        .module-title::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--secondary);
-            border-radius: 2px;
-        }
-        
-        .module-links {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        .module-links li {
-            margin-bottom: 15px;
-            position: relative;
-            padding-left: 30px;
-            transition: var(--transition);
-        }
-        
-        .module-links li:hover {
-            transform: translateX(5px);
-        }
-        
-        .module-links li::before {
-            content: ">";
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: var(--secondary);
-            font-family: var(--font-code);
-            font-size: 1.1rem;
-            font-weight: 700;
-            transition: var(--transition);
-        }
-        
-        .module-links li:hover::before {
-            color: var(--accent);
-            transform: scale(1.3);
-        }
-        
-        .module-links a {
-            text-decoration: none;
-            color: var(--text);
-            display: block;
-            padding: 10px 0;
-            border-radius: 3px;
-            font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-        }
-        
-        .module-links a::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            transition: var(--transition);
-        }
-        
-        .module-links a:hover {
-            color: var(--text-secondary);
-        }
-        
-极客        .module-links a:hover::after {
-            width: 100%;
-        }
-        
-        .folder-section {
-            margin-top: 20px;
-        }
-        
-        .module-subtitle {
-            cursor: pointer;
-            padding: 12px 0;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            color: var(--text);
-            font-size: 1.25rem;
-            font-weight: 500;
-            transition: var(--transition);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        
-        .module-subtitle:hover {
-            color: var(--secondary);
-        }
-        
-        .module-subtitle::before {
-            content: "▸";
-            margin-right: 12px;
-            font-size: 0.9rem;
-            transition: var(--transition);
-            color: var(--primary);
-        }
-        
-        .folder-content {
-            display: none;
-            padding-left: 20px;
-            margin-top: 15px;
-        }
-        
-        .folder-section.active .folder-content {
-            display: block;
-            animation: slideIn 0.4s ease-out;
-        }
-        
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .folder-section.active .module-subtitle::before {
-            transform: rotate(90deg);
-            color: var(--accent);
-        }
-        
-        /* 左侧悬浮卡片样式 */
-        .floating-card {
-            position: fixed;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 180px;
-            background: rgba(18, 18, 26, 0.85);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(123, 104, 238, 0.2);
-            z-index: 1000;
-            transition: all 0.4s ease;
-        }
-
-        .floating-card:hover {
-            box-shadow: 0 12px 40px rgba(123, 104, 238, 0.4);
-            transform: translateY(-50%) scale(1.02);
-            border-color: rgba(123, 104, 238, 0.4);
-        }
-        
-        .card-content {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-        
-        .date-info {
-            text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        #current-date {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--primary);
-            margin-bottom: 4px;
-        }
-        
-        #current-time {
-            font-size: 1 rem;
-            font-weight: 600;
-            color: var(--text);
-            font-family: var(--font-code);
-        }
-        
-        .weather-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .weather-icon {
-            font-size: 2.5rem;
-            color: var(--accent);
-        }
-        
-        .weather-details {
-            flex: 1;
-        }
-        
-        .temperature {
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-        
-        .condition {
-            font-size: 0.6rem;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-            min-height: 1.2em;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-        
-        .location {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-        }
-        
-        .location i {
-            font-size: 0.7rem;
-        }
-        
-        .quote {
-            text-align: center;
-            font-size: 0.6rem;
-            color: var(--text-secondary);
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .refresh-weather {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 0.7rem;
-            transition: all 0.3s;
-        }
-        
-        .refresh-weather:hover {
-            color: var(--accent);
-            transform: rotate(90deg);
-        }
-        
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* 属性轮播动画 */
-        .carousel-item {
-            display: block;
-            animation: fadeIn 1s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        /* 响应式调整 */
-        @media (max-width: 1200px) {
-            .floating-card {
-                position: relative;
-                top: 0;
-                left: 0;
-                transform: none;
-                width: 100%;
-                max-width: 300px;
-                margin: 0 auto 40px;
-            }
-        }
-        
-        @media (max-width: 900px) {
-            .floating-card {
-                display: none;
-            }
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 80px;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            padding: 30px 0;
-            position: relative;
-        }
-        
-        footer::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(to right, transparent, var(--secondary), transparent);
-            border-radius: 3px;
-        }
-        
-        footer p {
-            margin-bottom: 10px;
-        }
-        
-        #last-update {
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        /* Terminal effect */
-        .terminal {
-            position: relative;
-            height: 60px;
-            overflow: hidden;
-            margin-top: 15px;
-        }
-        
-        .terminal-line {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            font-family: var(--font-code);
-            color: var(--success);
-            opacity: 0;
-            animation: typeLine 12s infinite;
-        }
-        
-        .terminal-line:nth-child(1) { animation-delay: 0s; }
-        .terminal-line:nth-child(2) { animation-delay: 4s; }
-        .terminal-line:nth-child(3) { animation-delay: 8s; }
-        
-        @keyframes typeLine {
-            0% { opacity: 0; top: 0; }
-            5% { opacity: 1; }
-            15%, 30% { opacity: 1; top: 0; }
-            35% { opacity: 0; top: -20px; }
-            100% { opacity: 0; top: -20px; }
-        }
-        
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .module-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .container {
-                padding: 10px;
-            }
-            
-            .module-card {
-                padding: 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .project-desc {
-                font-size: 1.1rem;
-            }
-            
-            .project-desc::after {
-                right: -25px;
-            }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #764ba2, #667eea);
         }
     </style>
 </head>
 <body>
-    <!-- 左侧悬浮信息卡片 -->
-    <div class="floating-card">
-        <button class="refresh-weather" title="刷新天气">
-            <i class="fas fa-sync-alt"></i>
-        </button>
-        <div class="card-content">
-            <div class="date-info">
-                <div id="current-date"></div>
-                <div id="current-time"></div>
-            </div>
-            <div class="weather-info">
-                <div class="weather-icon">
-                    <i id="weather-icon" class="wi wi-day-sunny"></i>
-                </div>
-                <div class="weather-details">
-                    <div id="temperature" class="temperature">
-                        <span class="loading"></span>加载中
-                    </div>
-                    <div id="weather-carousel" class="condition">加载天气信息...</div>
-                    <div id="location" class="location">
-                        <i class="fas fa-location-dot"></i>
-                        <span>定位中...</span>
-                    </div>
-                </div>
-            </div>
-            <div class="quote">"代码如诗，逻辑如歌"</div>
-        </div>
+    <!-- 背景效果 -->
+    <div class="background-container">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="grid-background"></div>
     </div>
-
-    <div class="container">
-        <header>
-            <h1>欢迎来到XiJiahao的个人主页</h1>
-            <p class="project-desc">Developer Portfolio & Documentation Center</p>
-            
-            <div class="terminal">
-                <div class="terminal-line">$ git commit -m "Crafting elegant solutions"</div>
-                <div class="terminal-line">$ npm run develop --optimize</div>
-                <div class="terminal-line">$ ./deploy.sh --production</div>
-            </div>
-        </header>
-        
-        <div class="module-grid">
-            <!-- Java EE Module -->
-            <div class="module-card">
-                <h2 class="module-title">Java EE</h2>
-                <div class="folder-section">
-                    <h3 class="module-subtitle">Java基础技术文档</h3>
-                    <ul class="module-links folder-content">
-                        <li><a href="JAVA/JAVA基础数据文档/多线程技术.html">多线程技术</a></li>
-                        <li><a href="thread-demo/demo1.html">Thread Pool Implementations</a></li>
-                        <li><a href="thread-demo/concurrent-collections.html">Concurrent Collections</a></li>
-                        <li><a href="thread-demo/java-memory-model.html">Java Memory Model</a></li>
-                    </ul>
-                </div>
-                
-                <div class="folder-section">
-                    <h3 class="module-subtitle">Enterprise Patterns</h3>
-                    <ul class="module-links folder-content">
-                        <li><a href="javaee/ejb-guide.html">EJB Development</a></li>
-                        <li><a href="javaee/jpa-advanced.html">JPA Advanced Techniques</a></li>
-                        <li><a href="javaee/web-services.html">REST & SOAP Web Services</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- Database Technology -->
-            <div class="module-card">
-                <h2 class="module-title">Database Systems</h2>
-                <ul class="module-links">
-                    <li><a href="database/jdbc-tutorial.html">JDBC Programming Guide</a></li>
-                    <li><a href="database/connection-pool.html">Connection Pool Optimization</a></li>
-                    <li><a href="database/sql-performance.html">SQL Performance Tuning</a></li>
-                    <li><a href="database/nosql-intro.html">NoSQL Databases Introduction</a></li>
-                    <li><a href="database/orm-frameworks.html">ORM Frameworks Comparison</a></li>
-                </ul>
-            </div>
-            
-            <!-- Web Development -->
-            <div class="module-card">
-                <h2 class="module-title">Web Development</h2>
-                <ul class="module-links">
-                    <li><a href="web/servlet-tutorial.html">Servlet Core Concepts</a></li>
-                    <li><a href="web/filter-listener.html">Filter & Listener Patterns</a></li>
-                    <li><a href="web/jsp-best-practices.html">JSP Best Practices</a></li>
-                    <li><a href="web/security-implementation.html">Web Security Implementation</a></li>
-                </ul>
-                
-                <div class="folder-section">
-                    <h3 class="module-subtitle">JavaScript Frameworks</h3>
-                    <ul class="module-links folder-content">
-                        <li><a href="js/react-guide.html">React Development</a></极客>
-                        <li><a href="js/angular-setup.html">Angular Setup</a></li>
-                        <li><a href="js/vue-performance.html">Vue Performance Tips</a></li>
-                    </ul>
-                </div>
+    
+    <!-- 自定义光标 -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <!-- 导航栏 -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">XiJiahao</div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#skills">技能</a></li>
+                <li><a href="#blog">博客</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="floating-cards">
+            <div class="float-card float-card-1"></div>
+            <div class="float-card float-card-2"></div>
+            <div class="float-card float-card-3"></div>
+        </div>
+        <div class="hero-content">
+            <p class="hero-subtitle">Full-Stack Developer & Creative Technologist</p>
+            <h1 class="hero-title">探索技术的<br>无限可能</h1>
+            <p class="hero-description">
+                专注于创造优雅、高性能的数字体验。将艺术与科技完美融合，<br>
+                打造下一代互联网应用。
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">
+                    <span>探索作品</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <span>联系我</span>
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
         </div>
-    </div>
-
-<script>
-    // 和风天气API配置
-    const API_KEY = '39d5a87b52384a038ec703729ca711d0';
-    const DEFAULT_CITY = '秦皇岛';
-    const DEFAULT_LAT = 39.899420;
-    const DEFAULT_LON = 119.526449;
+    </section>
     
-    // DOM元素
-    const currentDateEl = document.getElementById('current-date');
-    const currentTimeEl = document.getElementById('current-time');
-    const temperatureEl = document.getElementById('temperature');
-    const weatherCarouselEl = document.getElementById('weather-carousel');
-    const locationEl = document.getElementById('location');
-    const weatherIconEl = document.getElementById('weather-icon');
-    const refreshBtn = document.querySelector('.refresh-weather');
-    
-    // 天气属性轮播数组
-    let weatherProperties = [];
-    let carouselIndex = 0;
-    let carouselInterval;
-    
-    // 更新日期和时间
-    function updateDateTime() {
-        const now = new Date();
-        const options = { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            weekday: 'long'
-        };
-        currentDateEl.textContent = now.toLocaleDateString('zh-CN', options);
+    <!-- 项目展示 -->
+    <section class="content-section" id="projects">
+        <div class="section-header">
+            <p class="section-subtitle">Featured Work</p>
+            <h2 class="section-title">精选项目</h2>
+            <p class="section-description">
+                每个项目都是一次技术探索的旅程，追求极致的用户体验与代码优雅
+            </p>
+        </div>
         
-        // 格式化时间，只显示小时和分钟
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        currentTimeEl.textContent = `${hours}:${minutes}`;
-    }
-    
-    // 初始化日期时间
-    updateDateTime();
-    setInterval(updateDateTime, 1000); // 每分钟更新一次时间
-    
-    // 获取天气数据
-    async function fetchWeatherData() {
-        try {
-            // 显示加载状态
-            temperatureEl.innerHTML = '<span class="loading"></span>加载中';
-            weatherCarouselEl.textContent = '获取天气数据...';
-            locationEl.innerHTML = '<i class="fas fa-location-dot"></i><span>定位中...</span>';
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3 class="project-title">智能数据平台</h3>
+                <p class="project-description">
+                    基于机器学习的实时数据分析平台，处理每日TB级数据流，为企业决策提供智能支持
+                </p>
+                <div class="project-tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">TensorFlow</span>
+                    <span class="tag">AWS</span>
+                </div>
+                <a href="#" class="project-link">
+                    查看详情
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
             
-            // 尝试获取用户位置
-            let lat = DEFAULT_LAT;
-            let lon = DEFAULT_LON;
-            let city = DEFAULT_CITY;
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <h3 class="project-title">3D交互引擎</h3>
+                <p class="project-description">
+                    WebGL驱动的3D可视化引擎，支持复杂场景渲染与实时物理模拟，突破浏览器性能极限
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Three.js</span>
+                    <span class="tag">WebGL</span>
+                    <span class="tag">WASM</span>
+                    <span class="tag">Rust</span>
+                </div>
+                <a href="#" class="project-link">
+                    查看详情
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
             
-            if (navigator.geolocation) {
-                const position = await new Promise((resolve, reject) => {
-                    navigator.geolocation.getCurrentPosition(resolve, reject, { 
-                        timeout: 5000 
-                    });
-                });
-                
-                lat = position.coords.latitude;
-                lon = position.coords.longitude;
-                
-                // 使用反向地理编码获取城市名称
-                const reverseUrl = `https://restapi.amap.com/v3/geocode/regeo?key=${API_KEY}&location=${lon},${lat}`;
-                const reverseRes = await fetch(reverseUrl);
-                const reverseData = await reverseRes.json();
-                
-                if (reverseData.status === '1' && reverseData.regeocode) {
-                    city = reverseData.regeocode.addressComponent.city || 
-                           reverseData.regeocode.addressComponent.province || 
-                           DEFAULT_CITY;
-                }
-            }
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="project-title">AI助手系统</h3>
+                <p class="project-description">
+                    基于GPT-4的智能对话系统，集成自然语言处理与知识图谱，提供个性化AI体验
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Next.js</span>
+                    <span class="tag">OpenAI</span>
+                    <span class="tag">Redis</span>
+                    <span class="tag">Docker</span>
+                </div>
+                <a href="#" class="project-link">
+                    查看详情
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
             
-            // 使用城市ID获取天气数据（更可靠）
-            const locationUrl = `https://geoapi.qweather.com/v2/city/lookup?key=${API_KEY}&location=${city}`;
-            const locationRes = await fetch(locationUrl);
-            const locationData = await locationRes.json();
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="project-title">区块链平台</h3>
+                <p class="project-description">
+                    去中心化金融应用平台，智能合约驱动，实现安全高效的数字资产交易
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Solidity</span>
+                    <span class="tag">Web3.js</span>
+                    <span class="tag">Ethereum</span>
+                    <span class="tag">IPFS</span>
+                </div>
+                <a href="#" class="project-link">
+                    查看详情
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
             
-            if (locationData.code === '200' && locationData.location.length > 0) {
-                const locationId = locationData.location[0].id;
-                
-                // 使用位置ID获取天气数据
-                const weatherUrl = `https://devapi.qweather.com/v7/weather/now?key=${API_KEY}&location=${locationId}`;
-                const weatherRes = await fetch(weatherUrl);
-                const weatherData = await weatherRes.json();
-                
-                if (weatherData.code === '200') {
-                    const now = weatherData.now;
-                    
-                    // 更新天气信息
-                    temperatureEl.innerHTML = `${now.temp}°C`;
-                    weatherCarouselEl.textContent = now.text;
-                    locationEl.innerHTML = `<i class="fas fa-location-dot"></i><span>${city}</span>`;
-                    
-                    // 设置天气图标
-                    const iconMap = {
-                        '晴': 'wi-day-sunny',
-                        '多云': 'wi-day-cloudy',
-                        '阴': 'wi-cloudy',
-                        '雨': 'wi-rain',
-                        '雪': 'wi-snow',
-                        '雷阵雨': 'wi-thunderstorm',
-                        '阵雨': 'wi-showers',
-                        '小雨': 'wi-sprinkle',
-                        '中雨': 'wi-rain',
-                        '大雨': 'wi-rain',
-                        '暴雨': 'wi-rain-wind',
-                        '雾': 'wi-fog',
-                        '霾': 'wi-dust'
-                    };
-                    
-                    const iconClass = iconMap[now.text] || 'wi-day-sunny';
-                    weatherIconEl.className = `wi ${iconClass}`;
-                    
-                    // 准备轮播数据
-                    weatherProperties = [
-                        now.text,
-                        `湿度: ${now.humidity}%`,
-                        `风速: ${now.windSpeed}公里/小时`,
-                        `气压: ${now.pressure}百帕`
-                    ];
-                    
-                    // 启动轮播
-                    startCarousel();
-                } else {
-                    throw new Error('天气数据获取失败');
-                }
-            } else {
-                throw new Error('位置信息获取失败');
-            }
-        } catch (error) {
-            console.error('获取天气信息失败:', error);
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="project-title">跨平台应用</h3>
+                <p class="project-description">
+                    一次开发，多端运行。覆盖iOS、Android、Web的统一应用架构，千万级用户使用
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Flutter</span>
+                    <span class="tag">Dart</span>
+                    <span class="tag">Firebase</span>
+                    <span class="tag">GraphQL</span>
+                </div>
+                <a href="#" class="project-link">
+                    查看详情
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
             
-            // 显示静态天气信息作为回退
-            temperatureEl.innerHTML = '26°C';
-            weatherCarouselEl.textContent = '晴朗';
-            locationEl.innerHTML = `<i class="fas fa-location-dot"></i><span>${DEFAULT_CITY}</span>`;
-            weatherIconEl.className = 'wi wi-day-sunny';
-            
-            // 显示静态轮播数据
-            weatherProperties = [
-                '晴朗',
-                '湿度: 65%',
-                '风速: 12公里/小时',
-                '气压: 1015百帕'
-            ];
-            
-            startCarousel();
-        }
-    }
-    
-    // 启动天气属性轮播
-    function startCarousel() {
-        if (carouselInterval) clearInterval(carouselInterval);
-        
-        // 立即显示第一条
-        weatherCarouselEl.textContent = weatherProperties[0];
-        carouselIndex = 1;
-        
-        // 设置轮播间隔
-        carouselInterval = setInterval(() => {
-            weatherCarouselEl.textContent = weatherProperties[carouselIndex];
-            carouselIndex = (carouselIndex + 1) % weatherProperties.length;
-        }, 3000);
-    }
-    
-    // 刷新天气按钮事件
-    refreshBtn.addEventListener('click', fetchWeatherData);
-    
-    // 页面加载时获取天气
-    document.addEventListener('DOMContentLoaded', fetchWeatherData);
-</script>
-</body>
-</html>
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="project-title">量化交易系统</h3>
+                <p class="project-description">
+                    高频交易算法平台，毫秒级决策响应，AI驱动的市场预测与风险管理
+                </p>
+                <div class="project-tags">
+                    <span class="tag">C++</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Kafka</span>
+                    <span class="tag">MongoDB</span>
+                </div>
+                <a href="#" class="project-link">
+                    查看详情

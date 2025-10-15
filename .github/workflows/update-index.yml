@@ -1,4 +1,3 @@
-# .github/workflows/update-index.yml
 name: Auto Update Index
 
 on:
@@ -14,7 +13,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        token: ${{ secrets.AUTO_UPDATE_TOKEN }}  # 引用刚才添加的secret
+        token: ${{ secrets.AUTO_UPDATE_TOKEN }}  # 使用PAT而不是GITHUB_TOKEN
         
     - name: Set up Python
       uses: actions/setup-python@v4

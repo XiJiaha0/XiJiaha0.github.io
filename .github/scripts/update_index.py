@@ -3,7 +3,8 @@ import os
 import json
 from datetime import datetime
 
-def scan_repository():
+# 在scan_repository函数中添加过滤逻辑
+def scan_repository(target_folder=None):
     """扫描仓库中的文件夹和HTML文件"""
     structure = {}
     
@@ -14,6 +15,10 @@ def scan_repository():
         # 获取相对路径
         rel_path = os.path.relpath(root, '.')
         
+        # 如果指定了目标文件夹，只扫描该文件夹
+        if target_folder and not rel_path.startswith(target_folder):
+            continue
+            
         # 过滤HTML文件（排除index.html）
         html_files = [
             {

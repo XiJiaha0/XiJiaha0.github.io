@@ -3,8 +3,7 @@ import os
 import json
 from datetime import datetime
 
-# 在scan_repository函数中添加过滤逻辑
-def scan_repository(target_folder=None):
+def scan_repository():
     """扫描仓库中的文件夹和HTML文件"""
     structure = {}
     
@@ -15,10 +14,6 @@ def scan_repository(target_folder=None):
         # 获取相对路径
         rel_path = os.path.relpath(root, '.')
         
-        # 如果指定了目标文件夹，只扫描该文件夹
-        if target_folder and not rel_path.startswith(target_folder):
-            continue
-            
         # 过滤HTML文件（排除index.html）
         html_files = [
             {
@@ -80,26 +75,27 @@ def generate_folder_section(folder_name, folder_data):
     </div>
     '''
 
-def update_index_html(structure):
-    """更新index.html文件"""
-    with open('index.html', 'r', encoding='utf-8') as f:
-        content = f.read()
+def generate_section_content(structure, folder_name):
+    """为特定文件夹生成内容"""
+    section_html = ''
     
-    # 生成所有文件夹的HTML
-    folders_html = ''
-    for folder_name, folder_data in structure.items():
-        folders_html += generate_folder_section(folder_name, folder_data)
+    # 过滤出指定文件夹的内容
+    filtered_structure = {k: v for k, v in structure.items() 
+                         if k.startswith(folder_name) or k == folder_name}
+    
+    for folder_name, folder_data in filtered_structure.items():
+        section_html += generate_folder_section(folder_name, folder_data)
     
     # 如果没有找到文件，显示提示信息
-    if not structure:
-        folders_html = '''
+    if not filtered_structure:
+        section_html = f'''
         <div class="project-card" style="text-align: center; padding: 60px 30px;">
             <div class="project-icon" style="margin: 0 auto 20px auto;">
                 <i class="fas fa-folder-open"></i>
             </div>
-            <h3 class="project-title">暂无文档</h3>
+            <h3 class="project-title">暂无内容</h3>
             <p class="project-description">
-                仓库中尚未添加HTML文档<br>
+                尚未在 {folder_name} 文件夹中添加文档<br>
                 请上传HTML文件到相应文件夹
             </p>
             <div class="project-tags">
@@ -108,9 +104,12 @@ def update_index_html(structure):
         </div>
         '''
     
-    # 替换项目部分的内容
-    start_marker = '<!-- AUTO-GENERATED-PROJECTS-START -->'
-    end_marker = '<!-- AUTO-GENERATED-PROJECTS-END -->'
+    return section_html
+
+def replace_section(content, section_name, new_html):
+    """替换特定区域的内容"""
+    start_marker = f'<!-- AUTO-GENERATED-{section_name}-START -->'
+    end_marker = f'<!-- AUTO-GENERATED-{section_name}-END -->'
     
     start_index = content.find(start_marker)
     end_index = content.find(end_marker)
@@ -118,16 +117,37 @@ def update_index_html(structure):
     if start_index != -1 and end_index != -1:
         new_content = (
             content[:start_index + len(start_marker)] +
-            f'\n{folders_html}\n        ' +
+            f'\n{new_html}\n        ' +
             content[end_index:]
         )
-        
-        with open('index.html', 'w', encoding='utf-8') as f:
-            f.write(new_content)
-        
-        print(f"成功更新 index.html，找到 {len(structure)} 个文件夹")
+        return new_content, True
     else:
-        print("错误：未找到替换标记")
+        print(f"错误：未找到 {section_name} 替换标记")
+        return content, False
+
+def update_index_html(structure):
+    """更新index.html文件的各个栏目"""
+    with open('index.html', 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    # 更新项目区域
+    projects_html = generate_section_content(structure, 'projects')
+    content, success1 = replace_section(content, 'PROJECTS', projects_html)
+    
+    # 更新技能区域
+    skills_html = generate_section_content(structure, 'skills')
+    content, success2 = replace_section(content, 'SKILLS', skills_html)
+    
+    # 更新博客区域
+    blog_html = generate_section_content(structure, 'blog')
+    content, success3 = replace_section(content, 'BLOG', blog_html)
+    
+    if success1 and success2 and success3:
+        with open('index.html', 'w', encoding='utf-8') as f:
+            f.write(content)
+        print("成功更新所有栏目")
+    else:
+        print("部分栏目更新失败")
 
 def main():
     print("开始扫描仓库结构...")
@@ -138,7 +158,7 @@ def main():
         file_count = len(structure[folder_name]['files'])
         print(f"  - {folder_name} ({file_count} 个文件)")
     
-    print("更新 index.html...")
+    print("更新 index.html 各个栏目...")
     update_index_html(structure)
     print("完成!")
 

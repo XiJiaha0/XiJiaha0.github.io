@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技术技能 - XiJiahao</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --skill-bg: rgb(129, 22, 160);
+            --bg-primary: #050505; --bg-secondary: #0a0a0a;
+            --bg-card: rgba(15, 15, 15, 0.6); --text-primary: rgba(255, 255, 255, 0.95);
+            --text-secondary: rgba(255, 255, 255, 0.6); --border-color: rgba(255, 255, 255, 0.06);
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 100px 20px 50px; }
+        .back-btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 25px; background: var(--primary-gradient); color: white; text-decoration: none; border-radius: 25px; margin-bottom: 30px; }
+        .skill-category { margin-bottom: 50px; }
+        .category-title { font-size: 2rem; margin-bottom: 30px; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
+        .skill-card { background: var(--skill-bg); color: white; padding: 25px; border-radius: 15px; transition: transform 0.3s ease; }
+        .skill-card:hover { transform: translateY(-5px); }
+        .skill-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .skill-icon { width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .skill-name { font-size: 1.3rem; font-weight: 600; }
+        .skill-desc { line-height: 1.6; margin-bottom: 15px; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .skill-tag { background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 15px; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html#skills" class="back-btn">
+            <i class="fas fa-arrow-left"></i>返回技能列表
+        </a>
+
+        <div class="skill-category">
+            <h2 class="category-title">后端开发技术栈</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fab fa-java"></i></div>
+                        <h3 class="skill-name">Java 开发</h3>
+                    </div>
+                    <p class="skill-desc">熟练掌握Java语言特性，包括多线程编程、JVM调优、集合框架等。具备大型分布式系统开发经验。</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">SpringBoot</span>
+                        <span class="skill-tag">多线程</span>
+                        <span class="skill-tag">JVM</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fas fa-cloud"></i></div>
+                        <h3 class="skill-name">微服务架构</h3>
+                    </div>
+                    <p class="skill-desc">深入理解微服务架构设计，掌握SpringCloud生态，具备高并发系统架构设计和优化经验。</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">SpringCloud</span>
+                        <span class="skill-tag">Nacos</span>
+                        <span class="skill-tag">Sentinel</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fas fa-database"></i></div>
+                        <h3 class="skill-name">数据库技术</h3>
+                    </div>
+                    <p class="skill-desc">精通MySQL数据库设计与优化，熟悉Redis缓存技术，掌握SQL调优和索引优化策略。</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Redis</span>
+                        <span class="skill-tag">MyBatis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="skill-category">
+            <h2 class="category-title">中间件与工具</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fas fa-rocket"></i></div>
+                        <h3 class="skill-name">消息队列</h3>
+                    </div>
+                    <p class="skill-desc">熟练使用RocketMQ、RabbitMQ等消息中间件，实现系统解耦、异步处理和流量削峰。</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">RocketMQ</span>
+                        <span class="skill-tag">RabbitMQ</span>
+                        <span class="skill-tag">事务消息</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fas fa-tools"></i></div>
+                        <h3 class="skill-name">开发工具</h3>
+                    </div>
+                    <p class="skill-desc">熟练使用Git、Maven、Docker等开发工具，具备完整的CI/CD流水线搭建经验。</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Maven</span>
+                        <span class="skill-tag">Docker</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="skill-category">
+            <h2 class="category-title">算法与数据科学</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                        <h3 class="skill-name">机器学习</h3>
+                    </div>
+                    <p class="skill-desc">掌握经典机器学习算法，具备PSO优化算法、GRU神经网络等深度学习模型实践经验。</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PSO算法</span>
+                        <span class="skill-tag">GRU</span>
+                        <span class="skill-tag">特征工程</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3 class="skill-name">优化算法</h3>
+                    </div>
+                    <p class="skill-desc">精通布谷鸟优化算法、Levy飞行策略等元启发式算法，解决高维非线性优化问题。</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">布谷鸟算法</span>
+                        <span class="skill-tag">Levy飞行</span>
+                        <span class="skill-tag">非线性优化</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

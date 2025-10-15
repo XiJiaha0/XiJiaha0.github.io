@@ -704,12 +704,13 @@
                 <li><a href="#home">首页</a></li>
                 <li><a href="#projects">项目</a></li>
                 <li><a href="#skills">技能</a></li>
-                <!-- 博客跳转到GitHub仓库 -->
-                <li><a href="https://github.com/XiJiaha0/XiJiaha0.github.io" target="_blank">
-                    <i class="fas fa-book" style="margin-right: 5px;"></i>
-                    博客
-                </a></li>
+                <li><a href="#blog">博客</a></li>
                 <li><a href="#contact">联系</a></li>
+                <!-- 单独显示GitHub仓库链接 -->
+                <li><a href="https://github.com/XiJiaha0/XiJiaha0.github.io" target="_blank" class="github-link">
+                    <i class="fab fa-github" style="margin-right: 5px;"></i>
+                    仓库
+                </a></li>
             </ul>
         </div>
     </nav>
@@ -736,10 +737,9 @@
                     <span>技术技能</span>
                     <i class="fas fa-code"></i>
                 </a>
-                <!-- GitHub仓库按钮 -->
-                <a href="https://github.com/XiJiaha0/XiJiaha0.github.io" target="_blank" class="btn" style="background: var(--accent-gradient); color: white; box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);">
-                    <span>GitHub仓库</span>
-                    <i class="fab fa-github"></i>
+                <a href="#blog" class="btn" style="background: var(--accent-gradient); color: white; box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);">
+                    <span>我的博客</span>
+                    <i class="fas fa-book"></i>
                 </a>
             </div>
         </div>
@@ -804,6 +804,22 @@
         <!-- 这里只显示skills文件夹的内容 -->
         <!-- AUTO-GENERATED-SKILLS-END -->
     </section>
+
+    <!-- 博客展示 -->
+    <section class="content-section" id="blog">
+        <div class="section-header">
+            <p class="section-subtitle">My Blog</p>
+            <h2 class="section-title">技术博客</h2>
+            <p class="section-description">
+                技术学习笔记与项目心得分享
+            </p>
+        </div>
+        
+        <!-- AUTO-GENERATED-BLOG-START -->
+        <!-- 这里会自动显示blog文件夹的内容 -->
+        <!-- AUTO-GENERATED-BLOG-END -->
+    </section>
+    
     <!-- 联系部分 -->
     <section class="content-section" id="contact">
         <div class="section-header">
@@ -821,15 +837,16 @@
                 </div>
                 <h3 class="project-title">微信</h3>
                 <p class="project-description">
-                    扫描二维码添加微信好友<br>
-                    实时沟通与技术交流
+                    点击查看完整二维码<br>
+                    添加微信进行技术交流
                 </p>
                 <div class="project-tags">
                     <span class="tag">即时通讯</span>
                 </div>
-                <div class="project-link">
-                    <img src="pic/wechat/二维码.jpg" alt="微信二维码" style="width: 120px; height: 120px; border-radius: 10px; border: 2px solid var(--border-color);">
-                </div>
+                <a href="pic/wechat/二维码.jpg" class="project-link" target="_blank">
+                    查看二维码
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
             </div>
             
             <div class="project-card">

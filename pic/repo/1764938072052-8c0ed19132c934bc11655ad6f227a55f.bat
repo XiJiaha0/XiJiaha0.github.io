@@ -1,0 +1,1 @@
+start Game\Bin\TS4_x64.exe -alwaysoffline
